@@ -1,0 +1,27 @@
+{
+  "name": "budget-script",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "@playwright/test": "^1.40.1",
+    "@types/node": "^20.10.7",
+    "eslint": "^9.20.1",
+    "globals": "^15.15.0",
+    "typescript-eslint": "^8.24.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "exceljs": "^4.4.0",
+    "prettier": "^3.5.1",
+    "xlsx": "^0.18.5"
+  }
+  
+}
