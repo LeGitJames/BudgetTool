@@ -20,8 +20,8 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "exceljs": "^4.4.0",
+    "node-powershell": "^5.0.1",
     "prettier": "^3.5.1",
     "xlsx": "^0.18.5"
   }
-  
 }
