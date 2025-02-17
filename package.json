@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --fix"
+    "lint": "prettier --write . && npx eslint --fix .",
+    "unittest": "npx playwright test UnitTests.test.ts"
   },
   "keywords": [],
   "author": "",
