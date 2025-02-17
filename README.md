@@ -1,6 +1,6 @@
 # Budgeting web sraping script
 
-Tool to get all transactions made from your bank account and put them into a budget spreadsheet
+Tool to get all transactions made from your bank account and put them into a budget spreadsheet\
 IMPORTANT: Budget file needs to be created first and relavant info will need to be updated in BudgetData.ts file. (Future improvement)
 
 ## Prerequisites
