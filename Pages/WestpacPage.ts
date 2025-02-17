@@ -1,5 +1,5 @@
-import type { Locator, Page } from "@playwright/test";
-import { expect } from "@playwright/test";
+import type { Locator, Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 
 interface FilterOptions {
   includeWithdrawls: boolean;
@@ -34,51 +34,30 @@ export class WestpacPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.url = "https://www.westpac.co.nz/";
-    this.loginButton = this.page.getByRole("button", { name: "Login" });
-    this.usernameField = this.page.getByTestId("input-username");
-    this.passwordField = this.page.getByTestId("input-password");
-    this.submitButton = this.page.getByTestId("button-submit");
-    this.accountsHeader = this.page.getByRole("heading", {
-      name: "Accounts",
-      exact: true,
-    });
-    this.transactionFiltersButton = this.page.getByRole("button", {
-      name: "Transaction filters",
-    });
-    this.fromDatePicker = this.page
-      .locator("#from-date-picker-region")
-      .getByText("Date");
-    this.toDatePicker = this.page
-      .locator("#to-date-picker-region")
-      .getByText("Date");
-    this.selectMonthDropdown = this.page.locator(
-      'select[aria-label="Select month"]'
-    );
-    this.selectYearDropdown = this.page.locator(
-      'select[aria-label="Select year"]'
-    );
-    this.applyFiltersButton = this.page.getByRole("button", {
-      name: "Apply filters",
-    });
-    this.withdrawlsCheckbox = this.page
-      .getByTestId("account-details-filters-container")
-      .locator("#money-direction-out div")
-      .nth(3);
-    this.depositsCheckbox = this.page
-      .getByTestId("account-details-filters-container")
-      .locator("#money-direction-in div")
-      .nth(3);
-    this.minAmountField = this.page.getByPlaceholder("Min amount");
-    this.maxAmountField = this.page.getByPlaceholder("Max amount");
-    this.endOfTransactionsText = this.page.getByText("No more items to show");
+    this.url = 'https://www.westpac.co.nz/';
+    this.loginButton = this.page.getByRole('button', { name: 'Login' });
+    this.usernameField = this.page.getByTestId('input-username');
+    this.passwordField = this.page.getByTestId('input-password');
+    this.submitButton = this.page.getByTestId('button-submit');
+    this.accountsHeader = this.page.getByRole('heading', { name: 'Accounts', exact: true });
+    this.transactionFiltersButton = this.page.getByRole('button', { name: 'Transaction filters' });
+    this.fromDatePicker = this.page.locator('#from-date-picker-region').getByText('Date');
+    this.toDatePicker = this.page.locator('#to-date-picker-region').getByText('Date');
+    this.selectMonthDropdown = this.page.locator('select[aria-label="Select month"]');
+    this.selectYearDropdown = this.page.locator('select[aria-label="Select year"]');
+    this.applyFiltersButton = this.page.getByRole('button', { name: 'Apply filters' });
+    this.withdrawlsCheckbox = this.page.getByTestId('account-details-filters-container').locator('#money-direction-out div').nth(3);
+    this.depositsCheckbox = this.page.getByTestId('account-details-filters-container').locator('#money-direction-in div').nth(3);
+    this.minAmountField = this.page.getByPlaceholder('Min amount');
+    this.maxAmountField = this.page.getByPlaceholder('Max amount');
+    this.endOfTransactionsText = this.page.getByText('No more items to show');
   }
 
   /**
    * Navigate to westpac home page
    */
   async Goto() {
-    await this.page.goto("https://www.westpac.co.nz/");
+    await this.page.goto('https://www.westpac.co.nz/');
   }
 
   /**
@@ -92,7 +71,7 @@ export class WestpacPage {
     await this.passwordField.fill(password);
     await this.submitButton.click();
     await expect(this.accountsHeader).toBeVisible();
-    console.log("Logged in to westpac account");
+    console.log('Logged in to westpac account');
   }
 
   /**
@@ -100,10 +79,8 @@ export class WestpacPage {
    * @param accountName name of bank account
    */
   async SelectAccount(accountName: string) {
-    this.page.locator("a").filter({ hasText: accountName }).first().click();
-    await expect(
-      this.page.getByRole("heading", { name: accountName })
-    ).toBeVisible();
+    this.page.locator('a').filter({ hasText: accountName }).first().click();
+    await expect(this.page.getByRole('heading', { name: accountName })).toBeVisible();
   }
 
   /**
@@ -119,39 +96,22 @@ export class WestpacPage {
     const fromSelectMonthDropdown = this.selectMonthDropdown.first();
     const toSelectYearDropdown = this.selectYearDropdown.nth(1);
     const toSelectMonthDropdown = this.selectMonthDropdown.nth(1);
-    await fromSelectYearDropdown.selectOption(
-      fromDate.getFullYear().toString()
-    );
-    await fromSelectMonthDropdown.selectOption(
-      fromDate.toLocaleString("en-nz", { month: "short" })
-    );
-    await this.page
-      .getByRole("link", { name: fromDate.getDate().toString(), exact: true })
-      .click();
+    await fromSelectYearDropdown.selectOption(fromDate.getFullYear().toString());
+    await fromSelectMonthDropdown.selectOption(fromDate.toLocaleString('en-nz', { month: 'short' }));
+    await this.page.getByRole('link', { name: fromDate.getDate().toString(), exact: true }).click();
     await this.toDatePicker.click();
     await toSelectYearDropdown.selectOption(toDate.getFullYear().toString());
-    await toSelectMonthDropdown.selectOption(
-      toDate.toLocaleString("en-nz", { month: "short" })
-    );
-    await this.page
-      .getByRole("link", { name: toDate.getDate().toString(), exact: true })
-      .click();
+    await toSelectMonthDropdown.selectOption(toDate.toLocaleString('en-nz', { month: 'short' }));
+    await this.page.getByRole('link', { name: toDate.getDate().toString(), exact: true }).click();
 
-    const {
-      includeWithdrawls = true,
-      includeDeposits = true,
-      minAmount = "",
-      maxAmount = "",
-    } = options || {};
+    const { includeWithdrawls = true, includeDeposits = true, minAmount = '', maxAmount = '' } = options || {};
     // Westpac doesn't use proper checkboxes so cant use .check() here
-    const withdrawlsCheckboxValue =
-      await this.withdrawlsCheckbox.getAttribute("data-value");
-    if (includeWithdrawls !== (withdrawlsCheckboxValue === "Yes")) {
+    const withdrawlsCheckboxValue = await this.withdrawlsCheckbox.getAttribute('data-value');
+    if (includeWithdrawls !== (withdrawlsCheckboxValue === 'Yes')) {
       this.withdrawlsCheckbox.click();
     }
-    const depositsCheckboxValue =
-      await this.depositsCheckbox.getAttribute("data-value");
-    if (includeDeposits !== (depositsCheckboxValue === "Yes")) {
+    const depositsCheckboxValue = await this.depositsCheckbox.getAttribute('data-value');
+    if (includeDeposits !== (depositsCheckboxValue === 'Yes')) {
       this.depositsCheckbox.click();
     }
 
@@ -159,7 +119,7 @@ export class WestpacPage {
     await this.maxAmountField.fill(maxAmount.toString());
     await this.page.waitForTimeout(1000); // wait for UI to catch up. TODO - replace with more robust solution
     await this.applyFiltersButton.click();
-    console.log("Applied date filters");
+    console.log('Applied date filters');
   }
 
   /**
@@ -177,13 +137,13 @@ export class WestpacPage {
         // scroll to bottom
         await this.page.mouse.wheel(5000000, 5000000);
         timesScrolled++;
-        console.log("Transactions still loading...");
+        console.log('Transactions still loading...');
       }
     }
     if (!allTransactionsLoaded) {
-      throw new Error("Could not load all transactions");
+      throw new Error('Could not load all transactions');
     }
-    console.log("Loaded all transactions");
-    return await this.page.locator(".timeline-table tr[data-event-id]").all();
+    console.log('Loaded all transactions');
+    return await this.page.locator('.timeline-table tr[data-event-id]').all();
   }
 }
